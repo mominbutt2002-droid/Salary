@@ -1,0 +1,158 @@
+// src/pages/History/History.jsx
+import React, { useState } from 'react';
+import styles from './History.module.css';
+
+// Временные заглушки для компонентов (будут заменены на импорты позже)
+const TransactionList = ({ transactions, onEdit, onDelete }) => (
+  <div style={{ padding: '20px', textAlign: 'center', color: '#6b7280' }}>
+    Список операций (заглушка)
+  </div>
+);
+
+const EmptyState = ({ title, description, actionLabel, onAction }) => (
+  <div style={{
+    textAlign: 'center',
+    padding: '40px 20px',
+    backgroundColor: '#f9fafb',
+    borderRadius: '8px',
+  }}>
+    <div style={{ fontSize: '48px', marginBottom: '16px' }}>📋</div>
+    <div style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>{title}</div>
+    {description && <div style={{ color: '#6b7280', marginBottom: '16px' }}>{description}</div>}
+    {actionLabel && (
+      <button
+        onClick={onAction}
+        style={{
+          padding: '8px 16px',
+          backgroundColor: '#4f46e5',
+          color: 'white',
+          border: 'none',
+          borderRadius: '6px',
+          cursor: 'pointer',
+        }}
+      >
+        {actionLabel}
+      </button>
+    )}
+  </div>
+);
+
+// Временные категории для фильтров (будут заменены на импорты из констант позже)
+const TRANSACTION_TYPES = [
+  { id: 'all', label: 'Все операции' },
+  { id: 'income', label: 'Доход' },
+  { id: 'expense', label: 'Расход' },
+];
+
+const CATEGORIES = [
+  { id: 'all', label: 'Все категории' },
+  { id: 'salary', label: 'Зарплата' },
+  { id: 'freelance', label: 'Подработка' },
+  { id: 'groceries', label: 'Продукты' },
+  { id: 'transport', label: 'Транспорт' },
+  { id: 'other', label: 'Прочее' },
+];
+
+/**
+ * Страница истории операций с фильтрами
+ */
+const History = () => {
+  // Состояние фильтров
+  const [typeFilter, setTypeFilter] = useState('all');
+  const [categoryFilter, setCategoryFilter] = useState('all');
+
+  // Временные данные (будут заменены на реальные данные из сервисов позже)
+  const [transactions, setTransactions] = useState([]);
+
+  // Обработчик кнопки добавления (пока заглушка)
+  const handleAddTransaction = () => {
+    console.log('Добавление операции (заглушка)');
+  };
+
+  // Обработчики редактирования и удаления (пока заглушки)
+  const handleEdit = (id) => {
+    console.log('Редактирование операции:', id);
+  };
+
+  const handleDelete = (id) => {
+    console.log('Удаление операции:', id);
+  };
+
+  // Обработчики изменения фильтров
+  const handleTypeFilterChange = (e) => {
+    setTypeFilter(e.target.value);
+  };
+
+  const handleCategoryFilterChange = (e) => {
+    setCategoryFilter(e.target.value);
+  };
+
+  return (
+    <div className={styles.history}>
+      {/* Заголовок страницы и кнопка добавления */}
+      <div className={styles.header}>
+        <h1 className={styles.title}>История операций</h1>
+        <button className={styles.addButton} onClick={handleAddTransaction}>
+          <span>+</span> Добавить операцию
+        </button>
+      </div>
+
+      {/* Фильтры */}
+      <div className={styles.filters}>
+        <div className={styles.filterItem}>
+          <label className={styles.filterLabel}>Тип операции</label>
+          <select
+            className={styles.filterSelect}
+            value={typeFilter}
+            onChange={handleTypeFilterChange}
+          >
+            {TRANSACTION_TYPES.map((type) => (
+              <option key={type.id} value={type.id}>
+                {type.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className={styles.filterItem}>
+          <label className={styles.filterLabel}>Категория</label>
+          <select
+            className={styles.filterSelect}
+            value={categoryFilter}
+            onChange={handleCategoryFilterChange}
+          >
+            {CATEGORIES.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* Список операций */}
+      <div className={styles.listContainer}>
+        <div className={styles.listHeader}>
+          <h2 className={styles.listTitle}>Операции</h2>
+        </div>
+
+        {transactions?.length > 0 ? (
+          <TransactionList
+            transactions={transactions}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        ) : (
+          <EmptyState
+            title="Нет операций"
+            description="Добавьте свою первую операцию или измените фильтры"
+            actionLabel="Добавить операцию"
+            onAction={handleAddTransaction}
+          />
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default History;
