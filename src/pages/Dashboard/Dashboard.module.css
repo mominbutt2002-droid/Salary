@@ -1,17 +1,15 @@
-/* src/pages/Dashboard/Dashboard.module.css */
-
-/* Контейнер страницы дашборда */
+/* Стили страницы дашборда */
 .dashboard {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-xl);
 }
 
-/* Заголовок страницы */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: var(--spacing-md);
 }
 
 .title {
@@ -20,31 +18,42 @@
   color: var(--color-text);
 }
 
-/* Кнопка добавления операции */
 .addButton {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-sm) var(--spacing-md);
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
   background-color: var(--color-primary);
   color: white;
   border-radius: var(--radius-md);
-  font-weight: 500;
-  transition: background-color 0.2s ease;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
 }
 
 .addButton:hover {
   background-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.addButton:active {
+  transform: translateY(0);
+}
+
+.addIcon {
+  font-size: var(--font-size-xl);
+  line-height: 1;
 }
 
 /* Сетка карточек баланса */
-.cards {
+.balanceGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--spacing-md);
+  gap: var(--spacing-lg);
 }
 
-/* Область последних операций */
+/* Секция последних операций */
 .recentSection {
   background-color: var(--color-surface);
   border-radius: var(--radius-lg);
@@ -52,25 +61,26 @@
   box-shadow: var(--shadow-sm);
 }
 
-.sectionHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--spacing-md);
-}
-
 .sectionTitle {
   font-size: var(--font-size-lg);
   font-weight: 600;
   color: var(--color-text);
+  margin-bottom: var(--spacing-md);
 }
 
-.viewAllLink {
-  color: var(--color-primary);
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: stretch;
+  }
 
-.viewAllLink:hover {
-  color: var(--color-primary-hover);
+  .addButton {
+    justify-content: center;
+  }
+
+  .balanceGrid {
+    grid-template-columns: 1fr;
+  }
 }

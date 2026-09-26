@@ -1,25 +1,17 @@
-// src/components/Layout/Layout.jsx
-import React from 'react';
-import Header from '../Header/Header';
-import styles from './Layout.module.css';
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Header from "../Header/Header";
+import styles from "./Layout.module.css";
 
-/**
- * Обёртка приложения: шапка + основной контент
- */
-const Layout = ({ children }) => {
+function Layout() {
   return (
-    <div className={styles.wrapper}>
-      {/* Шапка приложения */}
+    <div className={styles.layout}>
       <Header />
-
-      {/* Основной контент */}
       <main className={styles.main}>
-        <div className={styles.content}>
-          {children}
-        </div>
+        <Outlet />
       </main>
     </div>
   );
-};
+}
 
 export default Layout;

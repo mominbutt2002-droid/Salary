@@ -1,45 +1,38 @@
-// src/components/Header/Header.jsx
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import styles from './Header.module.css';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import styles from "./Header.module.css";
 
-/**
- * Компонент шапки приложения с навигацией
- */
-const Header = () => {
+function Header() {
   return (
     <header className={styles.header}>
-      <div className={styles.container}>
-        {/* Логотип приложения */}
+      <div className={styles.headerContent}>
         <NavLink to="/" className={styles.logo}>
-          💰 Зарплатный трекер
+          <span className={styles.logoIcon}>💰</span>
+          <span>Salary Tracker</span>
         </NavLink>
 
-        {/* Навигационное меню */}
         <nav className={styles.nav}>
           <NavLink
             to="/"
-            className={({ isActive }) =>
-              isActive ? `${styles.navLink} ${styles.activeLink}` : styles.navLink
-            }
             end
+            className={({ isActive }) =>
+              `${styles.navLink} ${isActive ? styles.navLinkActive : ""}`
+            }
           >
             Главная
           </NavLink>
-
           <NavLink
             to="/history"
             className={({ isActive }) =>
-              isActive ? `${styles.navLink} ${styles.activeLink}` : styles.navLink
+              `${styles.navLink} ${isActive ? styles.navLinkActive : ""}`
             }
           >
             История
           </NavLink>
-
           <NavLink
             to="/analytics"
             className={({ isActive }) =>
-              isActive ? `${styles.navLink} ${styles.activeLink}` : styles.navLink
+              `${styles.navLink} ${isActive ? styles.navLinkActive : ""}`
             }
           >
             Аналитика
@@ -48,6 +41,6 @@ const Header = () => {
       </div>
     </header>
   );
-};
+}
 
 export default Header;

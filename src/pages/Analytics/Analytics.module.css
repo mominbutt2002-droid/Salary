@@ -1,158 +1,168 @@
-// src/pages/History/History.jsx
-import React, { useState } from 'react';
-import styles from './History.module.css';
+/* Стили страницы аналитики */
+.analytics {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
 
-// Временные заглушки для компонентов (будут заменены на импорты позже)
-const TransactionList = ({ transactions, onEdit, onDelete }) => (
-  <div style={{ padding: '20px', textAlign: 'center', color: '#6b7280' }}>
-    Список операций (заглушка)
-  </div>
-);
+.header {
+  margin-bottom: var(--spacing-md);
+}
 
-const EmptyState = ({ title, description, actionLabel, onAction }) => (
-  <div style={{
-    textAlign: 'center',
-    padding: '40px 20px',
-    backgroundColor: '#f9fafb',
-    borderRadius: '8px',
-  }}>
-    <div style={{ fontSize: '48px', marginBottom: '16px' }}>📋</div>
-    <div style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>{title}</div>
-    {description && <div style={{ color: '#6b7280', marginBottom: '16px' }}>{description}</div>}
-    {actionLabel && (
-      <button
-        onClick={onAction}
-        style={{
-          padding: '8px 16px',
-          backgroundColor: '#4f46e5',
-          color: 'white',
-          border: 'none',
-          borderRadius: '6px',
-          cursor: 'pointer',
-        }}
-      >
-        {actionLabel}
-      </button>
-    )}
-  </div>
-);
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+}
 
-// Временные категории для фильтров (будут заменены на импорты из констант позже)
-const TRANSACTION_TYPES = [
-  { id: 'all', label: 'Все операции' },
-  { id: 'income', label: 'Доход' },
-  { id: 'expense', label: 'Расход' },
-];
+/* Период выбора */
+.periodSelector {
+  display: flex;
+  gap: var(--spacing-sm);
+  background-color: var(--color-surface);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+}
 
-const CATEGORIES = [
-  { id: 'all', label: 'Все категории' },
-  { id: 'salary', label: 'Зарплата' },
-  { id: 'freelance', label: 'Подработка' },
-  { id: 'groceries', label: 'Продукты' },
-  { id: 'transport', label: 'Транспорт' },
-  { id: 'other', label: 'Прочее' },
-];
+.periodButton {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
 
-/**
- * Страница истории операций с фильтрами
- */
-const History = () => {
-  // Состояние фильтров
-  const [typeFilter, setTypeFilter] = useState('all');
-  const [categoryFilter, setCategoryFilter] = useState('all');
+.periodButton:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
 
-  // Временные данные (будут заменены на реальные данные из сервисов позже)
-  const [transactions, setTransactions] = useState([]);
+.periodButtonActive {
+  background-color: var(--color-primary);
+  color: white;
+}
 
-  // Обработчик кнопки добавления (пока заглушка)
-  const handleAddTransaction = () => {
-    console.log('Добавление операции (заглушка)');
-  };
+.periodButtonActive:hover {
+  background-color: var(--color-primary-hover);
+  color: white;
+}
 
-  // Обработчики редактирования и удаления (пока заглушки)
-  const handleEdit = (id) => {
-    console.log('Редактирование операции:', id);
-  };
+/* Сетка графиков */
+.chartsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--spacing-lg);
+}
 
-  const handleDelete = (id) => {
-    console.log('Удаление операции:', id);
-  };
+/* Карточка графика */
+.chartCard {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+}
 
-  // Обработчики изменения фильтров
-  const handleTypeFilterChange = (e) => {
-    setTypeFilter(e.target.value);
-  };
+.chartTitle {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-lg);
+}
 
-  const handleCategoryFilterChange = (e) => {
-    setCategoryFilter(e.target.value);
-  };
+.chartContainer {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  return (
-    <div className={styles.history}>
-      {/* Заголовок страницы и кнопка добавления */}
-      <div className={styles.header}>
-        <h1 className={styles.title}>История операций</h1>
-        <button className={styles.addButton} onClick={handleAddTransaction}>
-          <span>+</span> Добавить операцию
-        </button>
-      </div>
+/* Заглушка для пустых графиков */
+.chartPlaceholder {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--spacing-xl);
+}
 
-      {/* Фильтры */}
-      <div className={styles.filters}>
-        <div className={styles.filterItem}>
-          <label className={styles.filterLabel}>Тип операции</label>
-          <select
-            className={styles.filterSelect}
-            value={typeFilter}
-            onChange={handleTypeFilterChange}
-          >
-            {TRANSACTION_TYPES.map((type) => (
-              <option key={type.id} value={type.id}>
-                {type.label}
-              </option>
-            ))}
-          </select>
-        </div>
+.chartPlaceholderIcon {
+  font-size: 48px;
+  margin-bottom: var(--spacing-md);
+}
 
-        <div className={styles.filterItem}>
-          <label className={styles.filterLabel}>Категория</label>
-          <select
-            className={styles.filterSelect}
-            value={categoryFilter}
-            onChange={handleCategoryFilterChange}
-          >
-            {CATEGORIES.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.label}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
+.chartPlaceholderText {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+}
 
-      {/* Список операций */}
-      <div className={styles.listContainer}>
-        <div className={styles.listHeader}>
-          <h2 className={styles.listTitle}>Операции</h2>
-        </div>
+/* Сводная статистика */
+.summarySection {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+}
 
-        {transactions?.length > 0 ? (
-          <TransactionList
-            transactions={transactions}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
-        ) : (
-          <EmptyState
-            title="Нет операций"
-            description="Добавьте свою первую операцию или измените фильтры"
-            actionLabel="Добавить операцию"
-            onAction={handleAddTransaction}
-          />
-        )}
-      </div>
-    </div>
-  );
-};
+.summaryTitle {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-md);
+}
 
-export default History;
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.summaryItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+}
+
+.summaryLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.summaryValue {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.summaryValueIncome {
+  color: var(--color-income);
+}
+
+.summaryValueExpense {
+  color: var(--color-expense);
+}
+
+.summaryValueBalance {
+  color: var(--color-balance);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .chartsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .periodSelector {
+    flex-direction: column;
+  }
+
+  .periodButton {
+    width: 100%;
+    text-align: center;
+  }
+}
