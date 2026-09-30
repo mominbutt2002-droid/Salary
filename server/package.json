@@ -1,17 +1,18 @@
 {
-  "name": "salary-tracker-backend",
+  "name": "salary-tracker-server",
   "version": "1.0.0",
-  "description": "REST API для Salary Tracker на Express и SQLite",
+  "description": "REST API для Salary Tracker на Node.js + Express + SQLite",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "dependencies": {
-    "better-sqlite3": "^9.4.3",
     "cors": "^2.8.5",
     "express": "^4.18.3",
+    "lowdb": "^7.0.1",
+    "sqlite": "^5.1.1",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
