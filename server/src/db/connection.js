@@ -1,4 +1,5 @@
 import { JSONFilePreset } from 'lowdb/node';
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -6,8 +7,14 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Путь к JSON файлу базы данных
+// Путь к JSON файлу базы данных (server/data/db.json)
 const dbPath = path.resolve(__dirname, '../../data/db.json');
+const dbDir = path.dirname(dbPath);
+
+// Явно создаем директорию data, если её нет (это критично для lowdb)
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
+}
 
 // Дефолтная структура базы данных
 const defaultData = { incomes: [], expenses: [] };

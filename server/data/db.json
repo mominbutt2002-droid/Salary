@@ -1,0 +1,53 @@
+{
+  "incomes": [
+    {
+      "id": "15a319fc-b553-4ef1-b796-75dd31e113ed",
+      "amount": 550000,
+      "date": "2026-09-30",
+      "category": "freelance",
+      "comment": "",
+      "createdAt": "2026-09-30T11:20:31.698Z",
+      "updatedAt": "2026-09-30T11:20:31.698Z"
+    },
+    {
+      "id": "6c475605-4d2a-4705-ae36-f0894ce6c4bd",
+      "amount": 99999.93,
+      "date": "2026-09-30",
+      "category": "salary",
+      "comment": "",
+      "createdAt": "2026-09-30T11:09:42.423Z",
+      "updatedAt": "2026-09-30T11:09:42.423Z"
+    },
+    {
+      "id": "71deaaed-099a-4f53-b05c-ed7e29094b9c",
+      "amount": 330000,
+      "date": "2026-09-30",
+      "category": "debt_return",
+      "comment": "",
+      "createdAt": "2026-09-30T11:22:09.833Z",
+      "updatedAt": "2026-09-30T11:22:09.833Z"
+    }
+  ],
+  "expenses": [
+    {
+      "id": "c5c06357-e1b2-4eba-8cda-6d0ec5d5d0d8",
+      "amount": 20000,
+      "date": "2026-09-30",
+      "category": "utilities",
+      "comment": "",
+      "isRecurring": false,
+      "createdAt": "2026-09-30T11:09:51.947Z",
+      "updatedAt": "2026-09-30T11:18:36.772Z"
+    },
+    {
+      "id": "52c41c86-d6d6-4440-822a-0b560eacc60a",
+      "amount": 222222,
+      "date": "2026-09-30",
+      "category": "entertainment",
+      "comment": "",
+      "isRecurring": false,
+      "createdAt": "2026-09-30T11:22:21.650Z",
+      "updatedAt": "2026-09-30T11:22:21.650Z"
+    }
+  ]
+}
