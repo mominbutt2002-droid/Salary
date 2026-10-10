@@ -1,0 +1,136 @@
+.card {
+  position: relative;
+  width: min(100%, 320px);
+  aspect-ratio: 1.72 / 1;
+  border-radius: 22px;
+  padding: 16px 16px 14px;
+  color: #f7f4ee;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  box-shadow: 0 16px 30px rgba(28, 20, 10, 0.22);
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  right: -40px;
+  bottom: -50px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.compact {
+  width: min(78vw, 280px);
+}
+
+.active {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.uzcard {
+  background:
+    radial-gradient(90px 70px at 100% 0%, rgba(255, 255, 255, 0.28), transparent 60%),
+    linear-gradient(150deg, #2a62e6 0%, #163a9a 58%, #0b1d52 100%);
+}
+
+.humo {
+  background:
+    radial-gradient(110px 80px at 100% 0%, rgba(255, 255, 255, 0.22), transparent 55%),
+    linear-gradient(155deg, #1caf78 0%, #0d6a49 55%, #083728 100%);
+}
+
+.visa {
+  background:
+    radial-gradient(140px 90px at 90% 120%, rgba(240, 193, 74, 0.35), transparent 50%),
+    linear-gradient(160deg, #3a342c, #14120f 72%);
+  color: #f6efe2;
+}
+
+.mastercard {
+  background: linear-gradient(150deg, #e06a42, #7a2418 70%);
+}
+
+.local {
+  background: linear-gradient(155deg, #4d463c, #221e19);
+}
+
+.top,
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  gap: 8px;
+}
+
+.chip {
+  width: 34px;
+  height: 26px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #f3d48a, #b8882e);
+  box-shadow: inset 0 0 0 1px rgba(90, 55, 10, 0.35);
+}
+
+.brand {
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  font-size: 13px;
+}
+
+.number,
+.balance,
+.bottom {
+  position: relative;
+  z-index: 1;
+}
+
+.number {
+  letter-spacing: 0.08em;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.balance {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 560;
+}
+
+.bottom {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  opacity: 0.9;
+}
+
+.badge,
+.frost {
+  position: absolute;
+  z-index: 2;
+  top: 12px;
+  left: 58px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: 999px;
+  padding: 3px 8px;
+}
+
+.frost {
+  top: auto;
+  bottom: 42px;
+  left: 16px;
+  background: rgba(8, 16, 28, 0.55);
+}
+
+.frozen {
+  filter: saturate(0.45);
+}

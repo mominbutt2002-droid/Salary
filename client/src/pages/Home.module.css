@@ -1,0 +1,195 @@
+.home { display: grid; gap: 16px; }
+
+.hero {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: 18px 16px 16px;
+  box-shadow: var(--shadow);
+}
+
+.greet p { color: var(--muted); font-weight: 700; }
+.greet h2 { font-family: var(--display); font-size: 34px; font-weight: 560; }
+
+.balanceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  margin: 16px 0 14px;
+}
+
+.kicker { color: var(--muted); font-size: 13px; font-weight: 700; }
+
+.total {
+  font-family: var(--display);
+  font-size: clamp(32px, 5vw, 46px);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.eye {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--surface-2);
+  display: grid;
+  place-items: center;
+}
+
+.scroller {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 4px 2px 8px;
+}
+
+.scroller::-webkit-scrollbar { height: 0; }
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.action {
+  min-height: 92px;
+  border-radius: 22px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 13px;
+  text-align: center;
+  padding: 8px;
+}
+
+.action svg { color: var(--accent); }
+
+.actionGo {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: transparent;
+}
+
+.actionGo svg { color: var(--accent-ink); }
+
+.columns {
+  display: grid;
+  gap: 16px;
+}
+
+.stack, .sideWidgets { display: grid; gap: 16px; align-content: start; }
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.head a { color: var(--accent); font-weight: 800; }
+
+.saved {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.savedItem {
+  background: var(--surface-2);
+  border-radius: 16px;
+  padding: 10px;
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.savedItem strong, .savedItem small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.savedItem small { color: var(--muted); }
+
+.savedIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: var(--accent-soft);
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.feed { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+
+.feed li {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.feed strong, .feed small { display: block; }
+.feed small { color: var(--muted); font-size: 12px; }
+.feed b { font-size: 13px; white-space: nowrap; }
+
+.txIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: var(--surface-2);
+}
+
+.out { color: var(--danger); }
+.in { color: var(--income); }
+
+.spend {
+  font-family: var(--display);
+  font-size: 28px;
+  margin: 6px 0 12px;
+}
+
+.bars {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  align-items: end;
+  height: 96px;
+}
+
+.bars div { display: grid; align-items: end; justify-items: center; height: 100%; gap: 6px; }
+.bars span {
+  display: block;
+  width: 100%;
+  max-width: 18px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--gold), var(--accent));
+}
+.bars small { color: var(--muted); font-size: 11px; }
+
+.cats { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 10px; }
+.cats li { display: grid; grid-template-columns: 92px 1fr; gap: 4px 8px; font-size: 13px; }
+.cats b { grid-column: 1 / -1; color: var(--muted); font-weight: 700; }
+.track { height: 8px; border-radius: 99px; background: var(--surface-2); overflow: hidden; }
+.track i { display: block; height: 100%; background: var(--accent); border-radius: inherit; }
+.note { margin-top: 14px; color: var(--muted); font-size: 13px; }
+
+@media (max-width: 720px) {
+  .actions { grid-template-columns: repeat(2, 1fr); }
+  .saved { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 980px) {
+  .columns { grid-template-columns: minmax(0, 1fr) 320px; }
+}

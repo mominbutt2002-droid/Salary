@@ -1,0 +1,36 @@
+.head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.grid {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.pick { border-radius: 22px; }
+
+.detail { padding: 18px; display: grid; gap: 12px; }
+
+.money {
+  font-family: var(--display);
+  font-size: 36px;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.form { display: grid; gap: 12px; }
+.preview { display: grid; justify-content: center; margin-bottom: 12px; }
+
+@media (max-width: 640px) {
+  .actions { grid-template-columns: 1fr; }
+}
