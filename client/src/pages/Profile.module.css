@@ -1,0 +1,24 @@
+.hero {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 18px;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--display);
+  font-size: 28px;
+}
+
+.block { padding: 18px; display: grid; gap: 12px; }
+.block h2 { font-size: 18px; }
+.links { display: grid; gap: 8px; }
+.links a { color: var(--accent); font-weight: 800; }
+.resetText { margin-bottom: 14px; color: var(--muted); }
