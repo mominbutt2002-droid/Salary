@@ -1,33 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BankContext } from "./bank-context";
-import { STORAGE_KEY, createSeed, userProfile } from "../data/catalog";
+import { createSeed, userProfile } from "../data/catalog";
 import { applyAddCard, applyFreeze, applyMerchant, applyPay, applyPrimary, applyRemoveCard, applyTopUp, applyTransfer } from "../state/ops";
 import { makeId, makeReceipt } from "../utils/format";
 
-function loadState() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return createSeed();
-    const data = JSON.parse(raw);
-    if (data.version !== 1 || !Array.isArray(data.cards) || data.cards.length === 0) return createSeed();
-    return {
-      ...createSeed(),
-      ...data,
-      cards: data.cards,
-      transactions: Array.isArray(data.transactions) ? data.transactions : [],
-      saved: Array.isArray(data.saved) ? data.saved : [],
-    };
-  } catch {
-    return createSeed();
-  }
-}
-
 export function BankProvider({ children }) {
-  const [state, setState] = useState(loadState);
+  const [state, setState] = useState(null);
+  const [error, setError] = useState("");
+  const [attempt, setAttempt] = useState(0);
   const [systemDark, setSystemDark] = useState(() =>
     window.matchMedia("(prefers-color-scheme: dark)").matches,
   );
   const [toast, setToast] = useState(null);
+  const hydrated = useRef(false);
+  const saveChain = useRef(Promise.resolve());
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-color-scheme: dark)");
@@ -37,10 +23,48 @@ export function BankProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    let active = true;
+    fetch("/api/bank", { cache: "no-store" })
+      .then(async (response) => {
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.error || "База недоступна");
+        if (!active) return;
+        hydrated.current = false;
+        setState(data);
+        setError("");
+      })
+      .catch((loadError) => {
+        if (active) setError(loadError.message || "База недоступна");
+      });
+    return () => {
+      active = false;
+    };
+  }, [attempt]);
+
+  useEffect(() => {
+    if (!state) return undefined;
+    if (!hydrated.current) {
+      hydrated.current = true;
+      return undefined;
+    }
+    const snapshot = snapshotBank(state);
+    saveChain.current = saveChain.current.then(async () => {
+      const response = await fetch("/api/bank", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(snapshot),
+      });
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || "Не удалось записать в базу");
+      }
+    }).catch((saveError) => {
+      setToast({ id: Date.now(), message: saveError.message || "Не удалось записать в базу", tone: "bad" });
+    });
+    return undefined;
   }, [state]);
 
-  const theme = state.themeMode === "system" ? (systemDark ? "dark" : "light") : state.themeMode;
+  const theme = !state ? "light" : state.themeMode === "system" ? (systemDark ? "dark" : "light") : state.themeMode;
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -63,6 +87,31 @@ export function BankProvider({ children }) {
     receipt: makeReceipt(),
     createdAt: new Date().toISOString(),
   });
+
+  if (error) {
+    return (
+      <div className="boot">
+        <div>
+          <h1>Hamyon</h1>
+          <p className="error">{error}</p>
+          <button type="button" className="btn btn-primary" style={{ marginTop: 16 }} onClick={() => { setError(""); setAttempt((value) => value + 1); }}>
+            Повторить
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!state) {
+    return (
+      <div className="boot">
+        <div>
+          <h1>Hamyon</h1>
+          <p className="muted">Загружаем счета из базы…</p>
+        </div>
+      </div>
+    );
+  }
 
   const value = {
     user: userProfile,
@@ -106,6 +155,16 @@ export function BankProvider({ children }) {
       ) : null}
     </BankContext.Provider>
   );
+}
+
+function snapshotBank(state) {
+  return {
+    themeMode: state.themeMode,
+    balanceHidden: state.balanceHidden,
+    cards: state.cards,
+    saved: state.saved,
+    transactions: state.transactions,
+  };
 }
 
 function applyNow(setState, recipe, draft) {

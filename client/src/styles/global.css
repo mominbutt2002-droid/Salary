@@ -184,6 +184,22 @@ h1, h2, h3, p { margin: 0; }
 
 .toast--bad { background: #7a241c; color: #fff; }
 
+.boot {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  text-align: center;
+}
+
+.boot h1 {
+  font-family: var(--display);
+  font-size: 40px;
+  font-weight: 560;
+}
+
+.boot p { margin-top: 8px; }
+
 .seg {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
