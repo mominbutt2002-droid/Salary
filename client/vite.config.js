@@ -1,14 +1,23 @@
-import path from 'path'
-import { pathToFileURL } from 'url'
+import dns from 'node:dns'
+import path from 'node:path'
+import { pathToFileURL } from 'node:url'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
-// https://vite.dev/config/
+dns.setDefaultResultOrder('ipv4first')
+
 export default defineConfig({
   server: {
-    host: '::',
+    host: '0.0.0.0',
     port: 5173,
     strictPort: true,
+    allowedHosts: true,
+  },
+  preview: {
+    host: '0.0.0.0',
+    port: 5173,
+    strictPort: true,
+    allowedHosts: true,
   },
   plugins: [
     react(),
